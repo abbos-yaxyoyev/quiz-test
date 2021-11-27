@@ -1,0 +1,74 @@
+html {
+  box-sizing: border-box;
+  line-height: 1.25;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", SimSun, sans-serif;
+  font-weight: 400;
+  color: #000;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding:0;
+}
+
+input {
+  padding: 5px 8px;
+}
+
+.cf::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.w-100 {
+  width: 100% !important;
+}
+
+.main-container {
+  width: 70%;
+  margin: 0 auto;
+  padding: 50px 0;
+}
+
+ul {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  padding-inline-start: 0;
+  padding-left: 30px;
+}
+
+li {
+ 
+  padding: 5px;
+  font-size: 17px;
+  white-space: nowrap;
+  transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+}
+
+li:hover {
+  background-color: rgb(72, 152, 243);
+}
+
+
