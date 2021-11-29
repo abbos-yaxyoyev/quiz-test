@@ -14,19 +14,19 @@ import {
 
 export async function createQuestionHistoryController(request, reply) {
     const user = request.user;
-
-    let obj = {
-        user_id: user._id.toString(),
-        started_at: new Date(),
-        total_count: 20,
-        status: Status.DEFAULT
-    }
     try {
-        const data = await validateIt(obj, QuizDto, [QuizDtoGroup.CREATE])
-        const quize_history = await createQuizeHistoryService(data)
-        let quizes_array = await getQuizesTestService(data.total_count, quize_history._id)
+        const data = await validateIt(request.body, QuizDto, [QuizDtoGroup.CREATE]);
 
-        let insertCount = await insertManyAnswerService(quizes_array)
+        const obj = {
+            user_id: user._id,
+            started_at: new Date(),
+            total_count: data.total_count | 20,
+            status: Status.DEFAULT
+        }
+
+        const quize_history = await createQuizeHistoryService(obj);
+        const quizes_array = await getQuizesTestService(data.total_count, quize_history._id);
+        const insertCount = await insertManyAnswerService(quizes_array)
         console.log("insertCount :", insertCount);
 
         return reply.success({ quize_history, insertCount });
@@ -56,7 +56,6 @@ export async function quizeHistoryFinishedByIdController(request, reply) {
     const quizes = await validateIt(request.body, QuizDto, [QuizDtoGroup.GETById]);
     console.log('quizes :', quizes);
     const get_answer = await getAnswerByQuizeHistoryIdService(quizes._id);
-    console.log('get_answer :', get_answer);
 
     let correct = 0;
     let sum = 0;
@@ -68,6 +67,7 @@ export async function quizeHistoryFinishedByIdController(request, reply) {
     })
 
     let quize_obj = await getQuizeHistoryByIdService(quizes._id);
+
     quize_obj.finished_at = new Date();
     quize_obj.status = Status.FINISHED;
     quize_obj.correct_count = correct;

@@ -13,12 +13,12 @@ export async function createQuestionService(data: any) {
     }
 }
 
-export async function getQuizesTestService(limit: number = 20, history_id: any) {
+export async function getQuizesTestService(limit: number = 20, quiz_id: any) {
 
     const pipline = [
         {
             '$sample': {
-                size: 150
+                size: 130 + limit
             }
         },
         {
@@ -59,9 +59,9 @@ export async function getQuizesTestService(limit: number = 20, history_id: any) 
                 'quiz_id': {
                     $let: {
                         vars: {
-                            history_id: history_id
+                            quiz_id: quiz_id
                         },
-                        in: "$$history_id"
+                        in: "$$quiz_id"
                     }
                 },
                 'question_id': {

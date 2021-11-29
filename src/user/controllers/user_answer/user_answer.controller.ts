@@ -28,9 +28,6 @@ export async function getAnswerByQuizeHistoryIdController(request, reply) {
 export async function answerUpdateByQuizeHistoryIdController(request, reply) {
     const data = await validateIt(request.body, AnswerDto, [AnswerDtoGroup.USER_ANSWER_ID])
     console.log("data :", data);
-    // const get_answer: any = await getAnswerByQuizeIdService({ _id: Types.ObjectId(data._id), quize_id: Types.ObjectId(data.quiz_id) });
-    // get_answer.user_answer_id = data.user_answer_id
-
     const set_answer = await answerUpdateByIdeService({ _id: Types.ObjectId(data._id), quiz_id: Types.ObjectId(data.quiz_id) }, { user_answer_id: data.user_answer_id });
     return reply.success(set_answer);
 }

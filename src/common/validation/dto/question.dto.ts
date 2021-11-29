@@ -9,11 +9,6 @@ export class QuestionDtoGroup extends BaseGroupGroup {
 
 export class Answer {
 
-    @IsOptional({ groups: [QuestionDtoGroup.UPDATE, QuestionDtoGroup.GETById] })
-    @Transform(({ value }) => Types.ObjectId(value))
-    @IsMongoId({ groups: [QuestionDtoGroup.UPDATE, QuestionDtoGroup.GETById] })
-    _id: string;
-
     @IsString({ groups: [QuestionDtoGroup.CREATE, QuestionDtoGroup.UPDATE] })
     title: string;
 

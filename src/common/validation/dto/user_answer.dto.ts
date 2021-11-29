@@ -11,10 +11,6 @@ export class AnswerDtoGroup extends BaseGroupGroup {
 
 export class AnswerDto extends BaseDto {
 
-    @IsMongoId({ groups: [AnswerDtoGroup.CREATE, AnswerDtoGroup.PROFILE_UPDATE] })
-    // @Transform(({ value }) => Types.ObjectId(value))
-    public answer_id!: string;
-
     @IsMongoId({
         groups: [
             AnswerDtoGroup.CREATE,
@@ -23,7 +19,6 @@ export class AnswerDto extends BaseDto {
             AnswerDtoGroup.USER_ANSWER_ID
         ]
     })
-    // @Transform(({ value }) => Types.ObjectId(value))
     public quiz_id!: string;
 
     @IsString({ groups: [AnswerDtoGroup.CREATE, AnswerDtoGroup.UPDATE] })

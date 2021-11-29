@@ -27,7 +27,7 @@ export class AnswerQuestion {
     public title!: string;
 
     @prop({
-        type: () => Types.ObjectId,
+        type: () => [Types.ObjectId],
         default: []
     })
     public user_answer_id: Types.ObjectId[];
