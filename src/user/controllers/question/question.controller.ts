@@ -17,7 +17,7 @@ export async function createQuestionController(request, reply) {
 
 export async function getQuestionByIdController(request, reply) {
     const data = await validateIt(request.params, QuestionDto, [QuestionDtoGroup.GETById])
-    console.log(data);
+    console.log("data : 123");
     const question = await getQuestionByIdService(data._id)
     return reply.success(question);
 }

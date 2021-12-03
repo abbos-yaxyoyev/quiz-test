@@ -1,36 +1,35 @@
 import { QuizModel } from "../../common/db/models/quiz/quiz.models";
-import { Quize_HistoryErrors } from "../../common/db/models/quiz/quiz.error";
+import { QuizErrors } from "../../common/db/models/quiz/quiz.error";
 import { create, findById, updateOne, countTotal } from "../../common/service/base.service";
 
-export async function createQuizeHistoryService(data: any) {
+export async function createQuizService(data: any) {
     try {
-        const user = await create(QuizModel, data);
-        return user;
+        return await create(QuizModel, data);
     } catch (error) {
-        throw Quize_HistoryErrors.UnknownError(error)
+        throw QuizErrors.UnknownError(error)
     }
 }
 
-export async function getQuizeHistoryByIdService(_id: string) {
+export async function getQuizByIdService(_id: string) {
     const question = await findById(QuizModel, _id);
     if (!question) {
-        throw Quize_HistoryErrors.NotFound({ _id: _id })
+        throw QuizErrors.NotFound({ _id: _id })
     }
     return question;
 }
 
-export async function quizeHistoryUpdateService(query: object, data: any) {
+export async function quizUpdateService(query: object, data: any) {
     const question = await updateOne(QuizModel, query, data);
     if (!question) {
-        throw Quize_HistoryErrors.NotFound(data)
+        throw QuizErrors.NotFound(data)
     }
     return question;
 }
 
-export async function quizeHistoryCaunttotalService() {
+export async function quizCaunttotalService() {
     const total = await countTotal(QuizModel, {});
     if (!total) {
-        throw Quize_HistoryErrors.NotFound(total)
+        throw QuizErrors.NotFound(total)
     }
     return total;
 }

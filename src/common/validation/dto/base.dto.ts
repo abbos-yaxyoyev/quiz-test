@@ -13,6 +13,6 @@ export class BaseGroupGroup {
 
 export class BaseDto {
     // @IsMongoId({ groups: [BaseGroupGroup.UPDATE, BaseGroupGroup.GETById, BaseGroupGroup.USER_ANSWER_ID] })
-    @IsString({ groups: [BaseGroupGroup.UPDATE, BaseGroupGroup.GETById, BaseGroupGroup.USER_ANSWER_ID] })
+    @IsString({ groups: [BaseGroupGroup.UPDATE, BaseGroupGroup.GETById] })
     _id: string;
 }

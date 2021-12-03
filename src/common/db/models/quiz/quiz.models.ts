@@ -43,7 +43,7 @@ export class Quiz {
     public status?: string;
 
     @prop({})
-    public percent?: string;
+    public foizda?: number;
 }
 
 

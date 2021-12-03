@@ -37,4 +37,7 @@ export class User {
 }
 const schemaOpts = { schemaOptions: { timestamps: { createdAt: true } } };
 export const UserModel = getModelForClass(User, schemaOpts);
+
 export const UserSchema = UserModel.schema;
+
+

@@ -2,8 +2,8 @@ import fp from "fastify-plugin";
 import {
     // createAnswersController,
     answerCaunttotalController,
-    answerUpdateByQuizeHistoryIdController,
-    getAnswerByQuizeHistoryIdController,
+    answerUpdateByQuizIdController,
+    getAnswerByQuizIdController,
     getAnswerByIdController,
     // answerUpdateByIdController,
 } from "../controllers/user_answer/user_answer.controller";
@@ -23,12 +23,12 @@ async function pl(instance, _, next) {
 
     instance.put(
         '/api/answer/quize_answer',
-        getAnswerByQuizeHistoryIdController
+        getAnswerByQuizIdController
     )
 
     instance.put(
         '/api/answer/updateAnswer',
-        answerUpdateByQuizeHistoryIdController
+        answerUpdateByQuizIdController
     )
 
     next()

@@ -1,10 +1,10 @@
 import fp from "fastify-plugin";
 import {
-    createQuestionHistoryController,
-    getQuizeHistoryByIdController,
-    quizeHistoryCaunttotalController,
-    quizeHistoryFinishedByIdController,
-    quizeHistoryRunningByIdController
+    createQuizController,
+    getQuizByIdController,
+    quizCaunttotalController,
+    quizFinishedByIdController,
+    quizRunningByIdController
 } from "../controllers/quiz/quiz.controller"
 
 
@@ -15,7 +15,7 @@ async function pl(instance, _, next) {
         {
             preValidation: [instance.authenticate]
         },
-        createQuestionHistoryController
+        createQuizController
     )
 
     instance.get(
@@ -23,7 +23,7 @@ async function pl(instance, _, next) {
         {
             preValidation: [instance.authenticate]
         },
-        quizeHistoryCaunttotalController
+        quizCaunttotalController
     )
 
     instance.get(
@@ -31,7 +31,7 @@ async function pl(instance, _, next) {
         {
             preValidation: [instance.authenticate]
         },
-        getQuizeHistoryByIdController
+        getQuizByIdController
     )
 
     instance.put(
@@ -39,7 +39,7 @@ async function pl(instance, _, next) {
         {
             preValidation: [instance.authenticate]
         },
-        quizeHistoryFinishedByIdController
+        quizFinishedByIdController
     )
 
     instance.put(
@@ -47,7 +47,7 @@ async function pl(instance, _, next) {
         {
             preValidation: [instance.authenticate]
         },
-        quizeHistoryRunningByIdController
+        quizRunningByIdController
     )
 
     next()

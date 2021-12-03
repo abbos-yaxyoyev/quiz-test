@@ -1,11 +1,11 @@
 import { UserErrors } from "../../common/db/models/user/user.errors";
 import { User, UserModel } from "../../common/db/models/user/user.models";
 import { findOne, create, findById, updateOne, countTotal } from "../../common/service/base.service";
+import { UserDto } from "../../common/validation/dto/user.dto";
 
-export async function createUserService(data: any) {
+export async function createUserService(data: UserDto) {
     try {
-        const user = await create(UserModel, data);
-        return user;
+        return await create(UserModel, data);
     } catch (error) {
         throw UserErrors.AllreadyExists(error)
     }

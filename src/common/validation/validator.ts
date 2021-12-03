@@ -1,6 +1,6 @@
-import {ClassConstructor, plainToClass} from 'class-transformer';
-import {validate, ValidationError} from 'class-validator';
-import {UserDefinedError} from '../custom.error';
+import { ClassConstructor, plainToClass } from 'class-transformer';
+import { validate, ValidationError } from 'class-validator';
+import { UserDefinedError } from '../custom.error';
 
 export const firstError = (errors: ValidationError[]) => {
 
@@ -37,8 +37,8 @@ export const validateIt = async <T>(data: any, classType: ClassConstructor<T>, g
     if (!data) {
         throw UserDefinedError.ValidationError('Request body should be object')
     }
-    const classData = plainToClass(classType, data as T, {excludeExtraneousValues: false, });
-    const errors = await validate(classData as any, {groups, whitelist: true});
+    const classData = plainToClass(classType, data as T, { excludeExtraneousValues: false, });
+    const errors = await validate(classData as any, { groups, whitelist: true });
 
     if (!errors || errors.length === 0) {
         return classData;

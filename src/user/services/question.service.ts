@@ -1,14 +1,12 @@
 import { QuestionErrors } from "../../common/db/models/question/question.error";
-import { QuizQuestionModel } from "../../common/db/models/question/question.models";
+import { QuestionModel } from "../../common/db/models/question/question.models";
 import { create, findById, updateOne, countTotal, aggregate } from "../../common/service/base.service";
 
 export async function createQuestionService(data: any) {
     try {
-        const user = await create(QuizQuestionModel, data);
-        return user;
+        return await create(QuestionModel, data);
     } catch (error) {
         console.log("error question creat :", error);
-
         throw QuestionErrors.UnknownError(error)
     }
 }
@@ -56,22 +54,8 @@ export async function getQuizesTestService(limit: number = 20, quiz_id: any) {
                         "in": "$$answer._id"
                     }
                 },
-                'quiz_id': {
-                    $let: {
-                        vars: {
-                            quiz_id: quiz_id
-                        },
-                        in: "$$quiz_id"
-                    }
-                },
-                'question_id': {
-                    $let: {
-                        vars: {
-                            question_id: "$_id"
-                        },
-                        in: "$$question_id"
-                    }
-                }
+                'quiz_id': quiz_id,
+                'question_id': "$_id"
             }
         },
         {
@@ -85,15 +69,18 @@ export async function getQuizesTestService(limit: number = 20, quiz_id: any) {
         }
     ]
 
-    const questions = await aggregate(QuizQuestionModel, pipline);
-    if (!questions) {
+    const questions = await aggregate(QuestionModel, pipline);
+    if (questions.length == 0) {
         throw QuestionErrors.NotFound(questions)
     }
     return questions;
 }
 
 export async function getQuestionByIdService(_id: string) {
-    const question = await findById(QuizQuestionModel, _id);
+
+    const question = await findById(QuestionModel, _id);
+    console.log("question : 123");
+
     if (!question) {
         throw QuestionErrors.NotFound({ _id: _id })
     }
@@ -101,7 +88,7 @@ export async function getQuestionByIdService(_id: string) {
 }
 
 export async function questionUpdateService(_id: string, data: any) {
-    const question = await updateOne(QuizQuestionModel, { _id }, data);
+    const question = await updateOne(QuestionModel, { _id }, data);
     if (!question) {
         throw QuestionErrors.NotFound(data)
     }
@@ -109,7 +96,7 @@ export async function questionUpdateService(_id: string, data: any) {
 }
 
 export async function questionCaunttotalService() {
-    const total = await countTotal(QuizQuestionModel, {});
+    const total = await countTotal(QuestionModel, {});
     if (!total) {
         throw QuestionErrors.NotFound(total)
     }

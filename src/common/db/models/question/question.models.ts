@@ -23,26 +23,8 @@ export class Answer {
     }
 })
 
-@index(
-    {
-        "alternativ.isCorrect": 1
-    },
-    {
-        name: '_id_and_is_correct',
-        background: true,
-        // unique: true,
-        partialFilterExpression: {
-            type: {
-                $eq: 'single_answer',
-            },
-            "alternativ.isCorrect": {
-                $eq: true
-            }
-        }
-    }
-)
 
-export class QuizQuestion {
+export class Question {
     @prop({
         required: true,
         trim: true
@@ -61,5 +43,5 @@ export class QuizQuestion {
     public alternativ!: Answer[];
 
 }
-export const QuizQuestionModel = getModelForClass(QuizQuestion);
-export const QuestionSchema = QuizQuestionModel.schema;
+export const QuestionModel = getModelForClass(Question);
+export const QuestionSchema = QuestionModel.schema;

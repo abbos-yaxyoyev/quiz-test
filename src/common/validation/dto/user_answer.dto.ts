@@ -12,26 +12,23 @@ export class AnswerDtoGroup extends BaseGroupGroup {
 export class AnswerDto extends BaseDto {
 
     @IsMongoId({
-        groups: [
-            AnswerDtoGroup.CREATE,
-            AnswerDtoGroup.PROFILE_UPDATE,
-            AnswerDtoGroup.QUIZ_ID,
-            AnswerDtoGroup.USER_ANSWER_ID
-        ]
+        groups: [AnswerDtoGroup.QUIZ_ID, AnswerDtoGroup.USER_ANSWER_ID]
+    })
+    public question_id!: string;
+
+    @IsMongoId({
+        groups: [AnswerDtoGroup.QUIZ_ID, AnswerDtoGroup.USER_ANSWER_ID]
     })
     public quiz_id!: string;
 
-    @IsString({ groups: [AnswerDtoGroup.CREATE, AnswerDtoGroup.UPDATE] })
-    public title!: string;
-
-    @IsOptional({ groups: [AnswerDtoGroup.CREATE, AnswerDtoGroup.UPDATE, AnswerDtoGroup.USER_ANSWER_ID] })
+    @IsOptional({ groups: [AnswerDtoGroup.USER_ANSWER_ID] })
     @Transform(({ value }) => {
         value.forEach((item, index, array) => {
             array[index] = Types.ObjectId(item);
         });
         return value;
     })
-    @IsArray({ groups: [AnswerDtoGroup.CREATE, AnswerDtoGroup.UPDATE, AnswerDtoGroup.USER_ANSWER_ID] })
+    @IsArray({ groups: [AnswerDtoGroup.USER_ANSWER_ID] })
     public user_answer_id: Types.ObjectId[];
 
 }

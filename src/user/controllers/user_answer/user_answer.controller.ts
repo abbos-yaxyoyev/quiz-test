@@ -8,7 +8,7 @@ import {
     answerCaunttotalService,
     answerUpdateByIdeService,
     getAnswerByQuizeIdService,
-    getAnswerByQuizeHistoryIdService
+    getAnswerByQuizIdService
 } from "../../services/user_answer.service";
 
 export async function getAnswerByIdController(request, reply) {
@@ -18,18 +18,18 @@ export async function getAnswerByIdController(request, reply) {
     return reply.success(question);
 }
 
-export async function getAnswerByQuizeHistoryIdController(request, reply) {
+export async function getAnswerByQuizIdController(request, reply) {
     const data = await validateIt(request.body, AnswerDto, [AnswerDtoGroup.QUIZ_ID])
     console.log("quiz_id :", data);
-    const question = await getAnswerByQuizeHistoryIdService(data.quiz_id)
+    const question = await getAnswerByQuizIdService(data.quiz_id)
     return reply.success(question);
 }
 
-export async function answerUpdateByQuizeHistoryIdController(request, reply) {
+export async function answerUpdateByQuizIdController(request, reply) {
     const data = await validateIt(request.body, AnswerDto, [AnswerDtoGroup.USER_ANSWER_ID])
     console.log("data :", data);
-    const set_answer = await answerUpdateByIdeService({ _id: Types.ObjectId(data._id), quiz_id: Types.ObjectId(data.quiz_id) }, { user_answer_id: data.user_answer_id });
-    return reply.success(set_answer);
+    const set_answer = await answerUpdateByIdeService({ question_id: Types.ObjectId(data.question_id), quiz_id: Types.ObjectId(data.quiz_id) }, { user_answer_id: data.user_answer_id });
+    return reply.success({ chooose_answer: set_answer.user_answer_id });
 }
 
 export async function answerCaunttotalController(request, reply) {
